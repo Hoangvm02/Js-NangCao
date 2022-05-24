@@ -1,7 +1,9 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import 'bootstrap/dist/css/bootstrap.min.css';
 function render () {
-    document.querySelector('#header').innerHTML = Header.render();
+    document.querySelector('#header').innerHTML = '<button class="btn btn-primary">Test</button>';
+    // document.querySelector('#header').innerHTML = Header.render();
     document.querySelector('#content').innerHTML = '<div>CONTENT</div>';
     document.querySelector('#footer').innerHTML = Footer.render();
 }
