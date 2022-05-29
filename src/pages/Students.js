@@ -13,9 +13,9 @@ const Students = {
             ${
                 students.map((students) => (
                     `<div>
-                        <div>${students.id}</div>
-                        <div>${students.name}</div>
-                        <div>${students.msv}</div>
+                        <div>ID: ${students.id}</div>
+                        <div>NAME: ${students.name}</div>
+                        <div>Mã SV: ${students.msv}</div>
                     </div>`
                 )).join('')
             }
