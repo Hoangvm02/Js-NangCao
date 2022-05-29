@@ -82,7 +82,7 @@ const About = {
         </div>
     </div>
     </div>`
-    ))
+    )).join('')
 }
 </div>  
     `
