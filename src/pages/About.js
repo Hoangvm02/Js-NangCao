@@ -1,7 +1,9 @@
+import Footer from "../components/Footer"
+import Header from "../components/Header"
 import tintuc  from "../new-data"
 const About = {
     render : () => `
-        
+    ${Header.render()}
     <div id="blog" class="bg-gray-100 dark:bg-gray-900 px-4 xl:px-4 py-14">
     ${tintuc.map((tin) => (
     `<div>
@@ -85,6 +87,7 @@ const About = {
     )).join('')
 }
 </div>  
+${Footer.render()}
     `
 }
 export default About

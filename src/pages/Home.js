@@ -1,6 +1,9 @@
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+
 const Home = {
     render: () => `
-         
+         ${Header.render()}
     <div class="2xl:container 2xl:mx-auto ">
         </div>
 
@@ -115,7 +118,7 @@ const Home = {
 
     </div>
 </div>
-
+${Footer.render()}
     
     `
 }

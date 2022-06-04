@@ -1,24 +1,10 @@
-import { getAll, remove } from "../api/student";
-import dashboard from "./admin/dashboard";
-import reRender from "../helpers/reRender"
+import { list, remove } from "../../../api/products";
 
-const Students = {
+const Products = {
     render: async () => {
-        // 1. fetch là phương thức dùng để lấy dữ liệu từ phía BE
-        // 2. fetch trả về 1 Promise => sẽ có await ở trước fetch để chờ kq
-        // 3. fetch nhận vào đường dẫn API endpoint của BE
-        // const response = await fetch('https://629345787aa3e6af1a08bc3c.mockapi.io/students')
-        // 4. lần đợi fetch đầu tiên sẽ trả về obj Response
-        // console.log('response',response);
-        // 5. lần đợi tiếp theo là response trả dữ liệu về dạng json
-        const response = await getAll();
+        const response = await list();
         const {data} = response
-        // const students = await response.json();
-        // console.log("students", students);
         return `  
-          <div>
-            ${dashboard.render()}
-          </div>
         <div>
         <div class="w-11/12 mx-auto">
                       <header class="bg-white shadow">
@@ -30,7 +16,7 @@ const Students = {
                                   </h2>
                                   </div>
                                   <div class="mt-5 flex lg:mt-0 lg:ml-4">
-                                  <a href="/admin/students/add" class="sm:ml-3">
+                                  <a href="/admin/products/add" class="sm:ml-3">
                                       <button type="button"
                                       class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                       Thêm mới
@@ -60,6 +46,9 @@ const Students = {
                         PRICE
                       </th>
                       <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                      STATUS
+                    </th>
+                      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       SỬA
                       </th>
                       <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -68,21 +57,18 @@ const Students = {
                     </tr>
                   </thead>
                   <tbody class="bg-white divide-y divide-gray-200">
-                  ${data.map((students) => `
+                  ${data.map((products) => `
                   <tr>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  ${students.id}
+                  ${products.id}
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap">
                     <div class="">
                     </div>
                     <div class="flex items-center">
-                      <div class="flex-shrink-0 h-10 w-10">
-                        <img class="h-10 w-10 rounded-full" src="${students.avatar}" alt="">
-                      </div>
                       <div class="ml-4">
                         <div class="text-sm font-medium text-gray-900">
-                          ${students.name}
+                          ${products.name}
                         </div>
                       
                       </div>
@@ -90,19 +76,25 @@ const Students = {
                   </td>
                   <td class="px-6 py-4 mx-auto">
                   <p class="max-w-full px-2 text-xs font-semibold">
-                    ${students.msv}
+                    ${products.desc}
                   </p>
                 </td>
                   <td class="px-6 py-4 whitespace-nowrap">
                   <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                    ${students.createdAt}
+                    ${products.price}
                   </span>
                 </td>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
+                  ${products.status === 1 ? "Hiển Thị" : "Ẩn"}
+                </span>
+              </td>
                   <td class="px-6 py-4 whitespace-nowrap">
-                  <a href="/admin/products/${students.id}/edit" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" >Edit</a>
+                  <a href="/admin/products/${products.id}/edit" class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" >Edit</a>
                   </td>
                   <td>
-                  <button type="button" data-id="${students.id}" data-name="${students.name}" class="btn btn-danger focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
+                  <button type="button" data-id="${products.id}" data-name="${products.name}" class="btn btn-danger focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
                   </td>
                   `).join("")}
                   </tbody>
@@ -122,11 +114,11 @@ const Students = {
           const  btnId = btn.dataset.id
         
           await  remove(btnId)
-          // document.location.href = "/students"
-          await reRender('#content', Students);
+          // document.location.href = "/products"
+          window.location.href ="/admin/products"
         });
       });
     }
 
 };
-export default Students
+export default Products

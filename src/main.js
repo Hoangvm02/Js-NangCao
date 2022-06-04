@@ -6,26 +6,44 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Students from "./pages/Students";
+import DetailStudent from "./pages/detail-sudent";
+import dashboard from "./pages/admin/dashboard";
+import Signin from "./pages/Signin";
+import StudentAdd from "./pages/studentsAdd";
+import Products from "./pages/admin/admin-products";
+import ProductDetail from "./pages/admin/admin-products/product-detail";
+import ProductAdd from "./pages/admin/admin-products/product-add";
 
 // Khởi tạo đối tượng navigo
 const router = new Navigo('/', {linksSelector: "a"})
-const render = async (content) => {
+// const render = async (content) => {
     // test boostrap button
     // document.querySelector('#header').innerHTML = '<button class="btn btn-primary">Test</button>';
 
-    document.querySelector('#header').innerHTML = Header.render();
-    document.querySelector('#content').innerHTML =  await content;
-    document.querySelector('#footer').innerHTML = Footer.render();
-}
+    const render = async (content, id) => {
+        document.getElementById("app").innerHTML = await content.render(id);
+        // document.querySelector('#content').innerHTML = await content.render(id);
+        if (content.afterRender) await content.afterRender(id);
+    };
+
+    // document.querySelector('#header').innerHTML = Header.render();
+    // document.querySelector('#content').innerHTML = await content;
+    // document.querySelector('#footer').innerHTML = Footer.render();
+// }
 
 router.on({
-    "/": () => render(Home.render()),
-    "/about": () => render(About.render()),
+    "/": () => render(Home),
+    "/about": () => render(About),
+    "/admin": () => render(dashboard),
     "/news": () => render(),
-    "/students": () => render(Students.render())
+    "/signin": () => render(Signin),
+    "/students": () => render(Students),
+    "/students/:id": (data) => render(DetailStudent, (data.data.id)),
+    "/students/add": () => render(StudentAdd),
+    "admin/products": () => render(Products),
+    "/admin/products/add": () => render(ProductAdd),
+    "/admin/products/:id/edit": (data) => render(ProductDetail, (data.data.id)),
 });
-
-
 
 router.resolve();
 
