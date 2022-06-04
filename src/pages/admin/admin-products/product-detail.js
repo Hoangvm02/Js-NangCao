@@ -1,4 +1,5 @@
 import { listD } from "../../../api/products";
+import dashboard from "../dashboard";
 
 
 const ProductDetail = {
@@ -7,6 +8,8 @@ const ProductDetail = {
         const {data} = response;
         return (
             `
+            <div>
+            ${dashboard.render()}
             <header class="bg-white shadow">
             <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
                 <h1 class="text-3xl font-bold text-gray-900">
@@ -44,7 +47,9 @@ const ProductDetail = {
                     </div>
                 </div>
             </div>
-        </main>`)
+        </main>
+        
+        </div>`)
 
     }
 }
