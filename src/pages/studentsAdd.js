@@ -1,9 +1,11 @@
 import { add } from "../api/student";
+import router from "../helpers/router";
+import dashboard from "./admin/dashboard";
 
 const StudentAdd = {
     render: () =>{
         return `
-            
+            <div>${dashboard.render()}</div>
         <header class="bg-white shadow">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <h1 class="text-3xl font-bold text-gray-900">
@@ -67,7 +69,8 @@ const StudentAdd = {
           add(submitData)
           // createStudent(submitData);
           // window.location.replace('/students')
-          document.location.href = "/students";
+          // document.location.href = "/students";
+          router.navigate('/students')
       });
     }
 

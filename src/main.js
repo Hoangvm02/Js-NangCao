@@ -1,4 +1,4 @@
-import Navigo from "navigo"
+// import Navigo from "navigo"
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 // import bootstrap
@@ -13,9 +13,13 @@ import StudentAdd from "./pages/studentsAdd";
 import Products from "./pages/admin/admin-products";
 import ProductDetail from "./pages/admin/admin-products/product-detail";
 import ProductAdd from "./pages/admin/admin-products/product-add";
+import Books from "./pages/client-books/Books";
+import BookDetailPage from "./pages/client-books/bookDetail";
 
 // Khởi tạo đối tượng navigo
-const router = new Navigo('/', {linksSelector: "a"})
+// const router = new Navigo('/', {linksSelector: "a"})
+import router from './helpers/router'
+import StudentEdit from "./pages/studentEdit";
 // const render = async (content) => {
     // test boostrap button
     // document.querySelector('#header').innerHTML = '<button class="btn btn-primary">Test</button>';
@@ -39,10 +43,13 @@ router.on({
     "/signin": () => render(Signin),
     "/students": () => render(Students),
     "/students/:id": (data) => render(DetailStudent, (data.data.id)),
-    "/students/add": () => render(StudentAdd),
+    "/students/edit/:id": (data) => render(StudentEdit, (data.data.id)),
+    "/students/add": () => render(StudentAdd),  
     "admin/products": () => render(Products),
     "/admin/products/add": () => render(ProductAdd),
     "/admin/products/:id/edit": (data) => render(ProductDetail, (data.data.id)),
+    "books": () => render(Books),
+    "/books/:id": (data) => render(BookDetailPage, (data.data.id)),
 });
 
 router.resolve();

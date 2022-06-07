@@ -16,3 +16,7 @@ export const add = (data) =>{
     const url = `/students`
     return instance.post(url, data)
 }
+export const update = (student) => {
+    const url = `/students/${student.id}`;
+    return instance.put(url, student);
+}
